@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Demo models</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="model : ${models}">
+                <td th:text="${model.id}"></td>
+                <td th:text="${model.name}"></td>
+                <td th:text="${model.code}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

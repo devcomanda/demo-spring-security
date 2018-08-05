@@ -14,7 +14,7 @@ public class UserDetailsSecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService() throws Exception {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("root").password("{noop}root")
+        manager.createUser(User.withUsername("root@root.com").password("{noop}root")
                 .roles("ADMIN").build());
         return manager;
     }

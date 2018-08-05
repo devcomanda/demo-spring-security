@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Spring Security Demo Apps</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/styles/signin.css}">
+</head>
+
+<body class="text-center">
+<form class="form-signin" th:action="@{/login}" method="post">
+    <img class="mb-4"
+         src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg"
+         alt="" width="72" height="72">
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <div th:if="${param.error}" class="alert alert-error">
+        Invalid email and password.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">
+        You have been logged out.
+    </div>
+    <label for="email" class="sr-only">Email address</label>
+    <input type="email" id="email" name="email" class="form-control"
+           placeholder="Email address" required autofocus>
+
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" id="password" name="password" class="form-control"
+           placeholder="Password" required>
+
+    <input type="hidden" th:name="${_csrf.parameterName}"
+           th:value="${_csrf.token}"/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Sign in
+    </button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>
+</body>

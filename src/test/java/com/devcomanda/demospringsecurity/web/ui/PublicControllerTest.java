@@ -1,11 +1,9 @@
 package com.devcomanda.demospringsecurity.web.ui;
 
-import com.devcomanda.demospringsecurity.config.SecurityConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,9 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(PublicController.class)
-@Import(SecurityConfiguration.class)
-// Spring uses default configuration and we import our config for test
+@WebMvcTest(value = PublicController.class, secure = false)
 public class PublicControllerTest {
     @Autowired
     private MockMvc mvc;

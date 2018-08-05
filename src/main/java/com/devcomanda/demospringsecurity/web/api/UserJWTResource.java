@@ -4,6 +4,7 @@ import com.devcomanda.demospringsecurity.security.JWTConfigurer;
 import com.devcomanda.demospringsecurity.security.TokenProvider;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
@@ -34,14 +34,14 @@ public class UserJWTResource {
     @Autowired
     public UserJWTResource(
             final TokenProvider tokenProvider,
-            final AuthenticationManager authenticationManager
+            @Qualifier("apiAuthManager") final AuthenticationManager authenticationManager
     ) {
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JWTToken> authorize(final @Valid @RequestBody LoginReq loginReq) {
+    public ResponseEntity<JWTToken> authorize(final @RequestBody LoginReq loginReq) {
 
         final UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword());

@@ -1,4 +1,4 @@
-package com.devcomanda.demospringsecurity.web.security;
+package com.devcomanda.demospringsecurity.security.jwt;
 
 import com.devcomanda.demospringsecurity.security.TokenProvider;
 import io.jsonwebtoken.Jwts;

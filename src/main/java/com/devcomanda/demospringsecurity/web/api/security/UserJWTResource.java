@@ -1,7 +1,8 @@
-package com.devcomanda.demospringsecurity.web.api;
+package com.devcomanda.demospringsecurity.web.api.security;
 
 import com.devcomanda.demospringsecurity.security.JWTConfigurer;
 import com.devcomanda.demospringsecurity.security.TokenProvider;
+import com.devcomanda.demospringsecurity.web.api.requests.LoginReq;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
  */
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api/security/public")
 public class UserJWTResource {
 
     private final TokenProvider tokenProvider;
@@ -50,7 +51,7 @@ public class UserJWTResource {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final boolean rememberMe = loginReq.isRememberMe() == null ? false : loginReq.isRememberMe();
+        final boolean rememberMe = loginReq.isRememberMe();
 
         final String jwt = this.tokenProvider.createToken(authentication, rememberMe);
         final HttpHeaders httpHeaders = new HttpHeaders();
@@ -82,38 +83,6 @@ public class UserJWTResource {
 
         void setIdToken(final String idToken) {
             this.idToken = idToken;
-        }
-    }
-
-    private static class LoginReq {
-
-        private String email;
-        private String password;
-
-        private Boolean rememberMe;
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public Boolean isRememberMe() {
-            return rememberMe;
-        }
-
-        public void setRememberMe(Boolean rememberMe) {
-            this.rememberMe = rememberMe;
         }
     }
 }

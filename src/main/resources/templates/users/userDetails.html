@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-content">
+</head>
+<body>
+<div th:replace="navs/nav :: nav-content"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="navs/sidebar :: sidebar-content"></div>
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h4>User Details:</h4>
+            <dl class="row">
+                <dt class="col-sm-3">First Name</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${user.firstName}"></p>
+                </dd>
+
+                <dt class="col-sm-3">Last Name</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${user.lastName}"></p>
+                </dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${user.email}"></p>
+                </dd>
+
+                <dt class="col-sm-3">Activated</dt>
+                <dd class="col-sm-9">
+                    <p th:text="${user.activated}"></p>
+                </dd>
+            </dl>
+        </main>
+        <div th:replace="fragments/footer :: footer-content"></div>
+    </div>
+</div>
+<div th:include="fragments/footer :: footer-scripts"></div>
+</body>
+</html>

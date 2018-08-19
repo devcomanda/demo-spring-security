@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author Danil Kuznetsov (kuznetsov.danil.v@gmail.com)
@@ -34,6 +36,11 @@ public class SecurityConfiguration {
         this.tokenProvider = tokenProvider;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Configuration
     @Order(1)
     public class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
@@ -53,6 +60,7 @@ public class SecurityConfiguration {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/api/public/**").permitAll()
+                    .antMatchers("/api/security/public/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .apply(this.securityConfigurerAdapter());
@@ -80,6 +88,7 @@ public class SecurityConfiguration {
                     .userDetailsService(userDetailsService)
                     .authorizeRequests()
                     .antMatchers("/public/**").permitAll()
+                    .antMatchers("/security/**").permitAll()
                     .antMatchers("/styles/**").permitAll()
                     .anyRequest().authenticated()
                     .and()

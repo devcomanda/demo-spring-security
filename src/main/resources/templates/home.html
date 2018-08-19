@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: header-content">
+</head>
+<body>
+<div th:replace="navs/nav :: nav-content"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="navs/sidebar :: sidebar-content"></div>
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="jumbotron" sec:authorize="hasAnyRole('ROLE_USER')">
+                <div class="container">
+                    <h1 class="display-3">Welcome to Demo Project!</h1>
+                </div>
+            </div>
+        </main>
+        <div th:replace="fragments/footer :: footer-content"></div>
+    </div>
+</div>
+<div th:include="fragments/footer :: footer-scripts"></div>
+</body>
+</html>
+

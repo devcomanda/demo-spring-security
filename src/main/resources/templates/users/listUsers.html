@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-content">
+</head>
+<body>
+<div th:replace="navs/nav :: nav-content"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="navs/sidebar :: sidebar-content"></div>
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+            <p>
+                <a class="btn btn-outline-primary" href="/admin/users/new">
+                    Create new user
+                </a>
+            </p>
+            <h2>List Users</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Activated</th>
+                        <th>Activation</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td>
+                            <a th:href="@{'/admin/users/' + ${user.id} + '/update'}"
+                               th:text="${user.id}"></a>
+                        </td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.activated}"></td>
+                        <td>
+                            <form class="form-inline"
+                                  th:action="@{'/admin/users/' + ${user.id} + '/activate'}"
+                                  method="post">
+                                <input type="hidden"
+                                       name="${_csrf.parameterName}"
+                                       value="${_csrf.token}"/>
+                                <button class="btn btn-danger" type="submit">
+                                    <span data-feather="lock"></span>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <a th:href="@{'/admin/users/' + ${user.id}}"
+                               class="btn btn-success" href="#">
+                                <span data-feather="eye"></span>
+                            </a>
+                            <a th:href="@{'/admin/users/' + ${user.id} + '/update'}"
+                               class="btn btn-info" href="#">
+                                <span data-feather="edit"></span>
+                            </a>
+                            <form class="form-inline"
+                                  th:action="@{'/admin/users/' + ${user.id} + '/delete'}"
+                                  method="post">
+                                <input type="hidden"
+                                       name="${_csrf.parameterName}"
+                                       value="${_csrf.token}"/>
+                                <button class="btn btn-danger" type="submit">
+                                    <span data-feather="trash"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+        </main>
+        <div th:replace="fragments/footer :: footer-content"></div>
+    </div>
+</div>
+<div th:include="fragments/footer :: footer-scripts"></div>
+</body>
+</html>
+

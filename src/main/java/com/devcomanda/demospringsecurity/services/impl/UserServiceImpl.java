@@ -61,8 +61,6 @@ public class UserServiceImpl implements UserService {
         user.setEmail(req.getEmail());
         user.setFirstName(req.getFirstName());
         user.setLastName(req.getLastName());
-        user.setActivated(false);
-        user.setActivationKey(RandomUtil.generateActivationKey());
 
         this.authorityRepository.findById(AuthoritiesConstants.ROLE_USER)
                 .ifPresent(user::addAuthority);

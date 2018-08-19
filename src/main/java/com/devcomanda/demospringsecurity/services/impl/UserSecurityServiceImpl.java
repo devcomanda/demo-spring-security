@@ -97,7 +97,7 @@ public class UserSecurityServiceImpl implements UserSecurityService {
                 if (user.isActivated()) {
                     user.setActivated(false);
                     user.setActivationKey(RandomUtil.generateActivationKey());
-
+                    this.mailServiceImpl.sendActivationEmail(user);
                 } else {
                     user.setActivated(true);
                     user.setActivationKey(null);
